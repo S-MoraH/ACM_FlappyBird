@@ -1,6 +1,6 @@
-# ACM-FlappyBird
-ACM recreated the mobile game Flappy Bird
+# ACM_FlappyBird
 
+ACM recreated the mobile game Flappy Bird
 
 # Added
 
