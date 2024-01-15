@@ -4,10 +4,4 @@ ACM recreated the game Flappy Bird
 
 # Added
 
-- AI using the NEAT module to play the game
-
-- Created a GUI with options to:
-    - play the game manually
-    - train the AI
-    - Run the best Bird AI
-    - change to custom skins
+Also added an AI component that can play the game flawlessly
