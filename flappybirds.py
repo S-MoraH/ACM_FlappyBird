@@ -30,7 +30,7 @@ ALVIN_BIRD = [pygame.image.load(os.path.join("imgs", "alvin_skin2_1.png")), pyga
 LILLIAN_BIRD = [pygame.transform.scale(pygame.image.load(os.path.join("imgs", "lillian_skin1.png")), (64, 64)), pygame.transform.scale(pygame.image.load(os.path.join("imgs", "lillian_skin2.png")), (64, 64)), pygame.transform.scale(pygame.image.load(os.path.join("imgs", "lillian_skin3.png")), (64, 64))]
 
 # actual bird image used in game - CUSTOMIZE THIS 
-BIRD_IMGS = REGULAR_BIRD
+BIRD_IMGS = REGULAR_BIRD 
 
 # World Images
 PIPE_IMG = pygame.transform.scale2x(pygame.image.load(os.path.join("imgs", "pipe.png")))
@@ -61,10 +61,10 @@ POINT_EFFECT.set_volume(0.15)
 # ----- we'll create a class for each of the main objects:
 
 class Bird:
-    IMGS = BIRD_IMGS    # array of bird imgs
-    MAX_ROTATION = 25   # max degree of how much the sprite can rotate
-    ROT_VEL = 20        # controls how the sprite rotates every time
-    ANIMATION_TIME = 5  # stores how long a frame is shown
+    global BIRD_IMGS
+    MAX_ROTATION = 25 # how much bird rotates in flaps
+    ROT_VEL = 20 # rotation velocity, how much we rotate/frame 
+    ANIMATION_TIME = 5 # how long to show each bird animation
     
     #Note: using multiple sprite images/frames to animate the sprite’s movement
 
@@ -77,7 +77,7 @@ class Bird:
         self.vel = 0            # velocity starts at 0
         self.height = self.y
         self.img_count = 0      # track how many times we've shown an img
-        self.img = self.IMGS[0] # stores current img in use
+        self.img = BIRD_IMGS[0] # stores current img in use
 
     def jump(self):
         self.vel = -10.5        # this means that when jumping, move 10.5px up, since (0,0) is top left corner
@@ -128,20 +128,20 @@ class Bird:
 
         # this gives the animation- looks like the bird flaps
         if self.img_count < self.ANIMATION_TIME:
-            self.img = self.IMGS[0]
+            self.img = BIRD_IMGS[0]
         elif self.img_count < self.ANIMATION_TIME*2:
-            self.img = self.IMGS[1]
+            self.img = BIRD_IMGS[1]
         elif self.img_count < self.ANIMATION_TIME*3:
-            self.img = self.IMGS[2]
+            self.img = BIRD_IMGS[2]
         elif self.img_count < self.ANIMATION_TIME*4:
-            self.img = self.IMGS[1]
+            self.img = BIRD_IMGS[1]
         elif self.img_count == self.ANIMATION_TIME*4 + 1:
-            self.img = self.IMGS[0]
+            self.img = BIRD_IMGS[0]
             self.img_count = 0
 
         # if it's already looking down, then just make it look down
         if self.tilt <= -80: 
-            self.img = self.IMGS[1]
+            self.img = BIRD_IMGS[1]
             self.img_count = self.ANIMATION_TIME*2 # skips to the correct frame
 
         # rotates the image according to tilt
@@ -746,5 +746,5 @@ def run_gui():
                     run_normal_mode()
                 if settings_button.isOver(pos):
                     run_settings_gui()
-
+                    
 run_gui() # run the main gui
