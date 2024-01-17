@@ -552,7 +552,7 @@ def runBestAI():
     score = 0 # keep track of the user score (+1 every passed pipe)
 
     exit_button = Button((197, 235, 207), 25, WIN_WIDTH - 100, 0, 100, 50, "Exit")
-    
+
     run = True
     while run:
         clock.tick(30) # means we do 30 ticks per second at max 
@@ -561,7 +561,7 @@ def runBestAI():
                 run = False # quit the game
                 pygame.quit()
                 quit()
-            
+
             pos = pygame.mouse.get_pos()
             if event.type == pygame.MOUSEBUTTONDOWN: 
                 if exit_button.isOver(pos): 
@@ -577,6 +577,7 @@ def runBestAI():
         output = model.activate((bird.y, abs(bird.y - pipes[pipe_ind].height), abs(bird.y - pipes[pipe_ind].bottom)))
         # output is a list of output neurons- we only have one, so use index 0 
         if (output[0] > 0.5): 
+            JUMP_EFFECT.play()
             bird.jump()
 
         rem = [] # list of pipes to remove
@@ -584,6 +585,7 @@ def runBestAI():
         for pipe in pipes: 
             if pipe.collide(bird, win): 
                 run = False 
+                DEATH_EFFECT.play()
                 break
                 
             # if we passed the pipe
@@ -600,6 +602,7 @@ def runBestAI():
         # then we have to add a score and a new pipe
         if add_pipe: 
             score += 1
+            POINT_EFFECT.play()
             pipes.append(Pipe(600)) # add new pipe
 
         #remove everything in the array of pipes to be removed 
@@ -609,6 +612,7 @@ def runBestAI():
         # check collision between bird and floor
         if (bird.y + bird.img.get_height() >= 730 or bird.y < 0):
             run = False
+            DEATH_EFFECT.play()
             break
 
         base.move() # move the base
